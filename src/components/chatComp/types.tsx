@@ -2,7 +2,7 @@
 export type Session = {
     id: number
     name: string
-    createdAt: Date
+    createdAt: string
   }
   
   export type MessageType = "text" | "image" | "questionnaire" | "multiQuestionnaire"

@@ -101,6 +101,7 @@ export default function ChatComponent() {
       }
       const data = await response.json()
       dispatch(setSession(data))
+      console.log("Fetched sessions:", data)
     } catch (error) {
       console.error("Failed to fetch sessions:", error)
       setError("Failed to fetch sessions. Please try again later.")
@@ -273,7 +274,7 @@ const handleSendMessage = async (message: string, imageUrl?: string) => {
         id: newSession.id,
         name: sessname,
         messages: [],
-        createdAt: new Date(newSession.createdAt)
+        createdAt: String(new Date(newSession.createdAt))
       }))
       toast.success("New session created successfully!")
     } catch (error) {
@@ -308,8 +309,9 @@ const handleSendMessage = async (message: string, imageUrl?: string) => {
         id: session.id,
         name: session.name,
         messages: messages,
-        createdAt: new Date(session.createdAt)
+        createdAt: String(new Date(session.createdAt))
       }))
+      console.log("Fetched session messages:", messages)
       scrollToBottom()
     } catch (error) {
       console.error("Failed to fetch session messages:", error)
@@ -543,12 +545,12 @@ const handleSendMessage = async (message: string, imageUrl?: string) => {
           </AnimatePresence>
         </div>
 
-        <ChatInput
+        {currentSession.id!=-1 && <ChatInput
           onSendMessage={handleSendMessage}
           isTyping={isTyping}
           pendingQuestionnaire={pendingQuestionnaire}
           disabled={currentSession.id === -1}
-        />
+        />}
       </motion.div>
     </div>
   )

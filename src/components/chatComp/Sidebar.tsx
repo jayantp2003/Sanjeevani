@@ -150,7 +150,7 @@ export default function Sidebar({
                     .slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                     .map((session) => (
-                      <TooltipProvider key={session.id}>
+                      <TooltipProvider key={String(session.createdAt)}>
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Button
